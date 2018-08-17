@@ -1,0 +1,1 @@
+client 端使用client.connect(ip, PORT);與server進行連線次數太多次會使連線不正常

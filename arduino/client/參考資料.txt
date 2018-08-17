@@ -1,0 +1,3 @@
+https://www.cs.cmu.edu/afs/cs/academic/class/15213-f99/www/class26/
+http://lang.idv.tw/doku.php/program/c/socket_udp_%E8%A9%B3%E8%A7%A3
+http://beej-zhtw.netdpi.net/07-advanced-technology/7-6-broadcast-packet-hello-world

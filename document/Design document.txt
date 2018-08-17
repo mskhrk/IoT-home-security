@@ -1,0 +1,16 @@
+Arduino(iot device)
+
+--------------------------------
+Communication application(wifi)
+
+
+--------------------------------
+Decision application
+
+
+--------------------------------
+Event handling
+
+=====================================
+hardware device
+arduino D1
