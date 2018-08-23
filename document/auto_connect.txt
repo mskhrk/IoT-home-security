@@ -1,0 +1,19 @@
+client->  送廣播給同網段機器(UDP)
+
+->serverg 監聽固定port等待收到廣播
+	  接收到廣播封包把紀錄來源位置
+
+server->  使用來源位置送自己的位置給client(UDP)
+
+->client  接收server位置資訊
+
+client->  使用TCP與server建立連線
+
+->serverg 和client進行連線
+
+UDP(port)
+server:8700
+client:8701
+
+TCP(port)
+server:8702
