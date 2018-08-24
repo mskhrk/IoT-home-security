@@ -2,15 +2,19 @@
 #include <WiFiClient.h>
 #include <WiFiUdp.h>
 
-#define PORT 8700
+#define PORT_UDP 8700
+#define PORT_TCP 8701
+
 WiFiClient client;
 WiFiUDP udp;
-IPAddress ip(192, 168, 0, 172);
-IPAddress broadcastIp(192, 168, 0, 255);
+IPAddress serverIp;
+IPAddress localIp;
+IPAddress broadcastIp;
 const char *ssid = "JONES-NEW";
 const char *pass = "1133557799098";
 static boolean clientActive = false;
 char incomingByte;
+char buff[10];
 
 void setup() {
   Serial.begin(115200);
@@ -20,19 +24,40 @@ void setup() {
     Serial.print(".");
     delay(500);
   }
+  localIp=WiFi.localIP();
+  broadcastIp=WiFi.localIP();
+  broadcastIp[3]=255;
   Serial.println("");
   Serial.print("link to : ");
   Serial.println(ssid);
   Serial.print("My IP : ");
-  Serial.println(WiFi.localIP());
+  Serial.println(localIp);
   delay(200);
-  udp.begin(PORT);
-  udp.beginPacket(broadcastIp,PORT);
-  udp.write("2222222");
+  udp.begin(PORT_UDP);
+  udp.beginPacket(broadcastIp,PORT_UDP);
+  itoa( broadcastIp[0], buff, 10);
+  udp.write(buff);
+  udp.write(buff);
   udp.endPacket();
+  /*do
+  {
+    incomingByte=udp.read();
+    Serial.print(incomingByte);
+    }while(incomingByte==0);
+  udp.endPacket();*/
 }
 
 void loop() {
+  Serial.print(udp.parsePacket());
+  incomingByte=udp.read();
+  while(incomingByte!=255){
+  Serial.print(incomingByte);
+  incomingByte=udp.read();
+  }
+  
+ 
+ 
+    
 
   
   if (client.connected()) { // Returns true if the client is connected, false if not
@@ -52,7 +77,7 @@ void loop() {
         Serial.print((char)client.read());
       Serial.println("\"");
       //delay(2000);
-      client.connect(ip, PORT);
+      client.connect(serverIp, PORT_TCP);
       client.print("tina");
     }
     //client.print("tina");
@@ -63,7 +88,7 @@ void loop() {
       Serial.println("Client disconnected.");
     }
     clientActive = false;
-    client.connect(ip, PORT); // Connects to a specified IP address and port
+    client.connect(serverIp, PORT_TCP); // Connects to a specified IP address and port
   }
 
 }

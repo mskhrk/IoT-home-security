@@ -1,0 +1,4 @@
+udp.read()完一個封包後需要呼叫udp.parsePacket()才能在讀下一個
+udp.read()沒有讀到資料時回傳255
+
+當使用udp.write後要呼叫udp.endPacket()才會發送
