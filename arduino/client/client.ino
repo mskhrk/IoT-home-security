@@ -36,8 +36,7 @@ void setup() {
   udp.begin(PORT_UDP);
   udp.beginPacket(broadcastIp,PORT_UDP);
   itoa( broadcastIp[0], buff, 10);
-  udp.write(buff);
-  udp.write(buff);
+  udp.write("###");
   udp.endPacket();
   /*do
   {
